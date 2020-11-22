@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1606012439560.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2064486773",
+    "id" : "625E0982",
+    "lastKnownWriteTime" : 1604570822,
+    "last_content_update" : 1604570822,
+    "path" : "~/Apsilon/Ships/tests/testthat/test-verify_value_allowed.R",
+    "project_path" : "tests/testthat/test-verify_value_allowed.R",
+    "properties" : {
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 8,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

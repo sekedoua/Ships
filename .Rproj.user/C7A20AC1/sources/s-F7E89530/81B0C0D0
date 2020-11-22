@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1606012326963.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2995504326",
+    "id" : "81B0C0D0",
+    "lastKnownWriteTime" : 1604570822,
+    "last_content_update" : 1604570822,
+    "path" : "~/Apsilon/Ships/tests/testthat/test-column.R",
+    "project_path" : "tests/testthat/test-column.R",
+    "properties" : {
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
