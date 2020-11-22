@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1606008771437.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "57DB7E01",
+    "lastKnownWriteTime" : 1606007341,
+    "last_content_update" : 1606007341,
+    "path" : "~/Apsilon/Ships/app.R",
+    "project_path" : "app.R",
+    "properties" : {
+        "cursorPosition" : "0,14",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
