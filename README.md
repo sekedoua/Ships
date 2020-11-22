@@ -1,6 +1,8 @@
 # Ships
  R/Shiny Developer - Appsilon Test
-Goals
+
+Goals : 
+
 1- User can select a vessel type from the dropdown field
 
 2- User can select a vessel name from a dropdown field (available vessels should correspond to selected type). Dropdown fields should be created as a Shiny module
