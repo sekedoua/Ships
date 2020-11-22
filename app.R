@@ -1,5 +1,5 @@
 library(shiny)
-library(htmltools)
+ 
 require(semantic.dashboard)
 library(ggplot2)
 library(plyr)
@@ -8,7 +8,7 @@ library(leaflet)
 library(DT)
 library("data.table")  
 library(lubridate)
-#library(geosphere)
+ 
 
 
 #map icons
