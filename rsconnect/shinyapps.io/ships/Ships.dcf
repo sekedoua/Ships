@@ -1,0 +1,13 @@
+name: Ships
+title: Ships
+username:
+account: ships
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3271070
+bundleId: 3889672
+url: https://ships.shinyapps.io/Ships/
+when: 1606011813.76518
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: .gitattributes|README.md|tests/testthat.R
