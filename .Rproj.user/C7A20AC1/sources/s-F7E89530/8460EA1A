@@ -1,24 +1,24 @@
 {
     "collab_server" : "",
     "contents" : "",
-    "created" : 1606008771437.000,
+    "created" : 1606039009301.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "3684202228",
-    "id" : "57DB7E01",
-    "lastKnownWriteTime" : 1606039320,
-    "last_content_update" : 1606039320448,
-    "path" : "~/Apsilon/Ships/app.R",
-    "project_path" : "app.R",
+    "hash" : "0",
+    "id" : "8460EA1A",
+    "lastKnownWriteTime" : 1605934303,
+    "last_content_update" : 1605934303,
+    "path" : "~/Matriochkas/Debit.R",
+    "project_path" : null,
     "properties" : {
-        "cursorPosition" : "17,10",
+        "cursorPosition" : "16,0",
         "scrollLine" : "0"
     },
     "read_only" : false,
     "read_only_alternatives" : [
     ],
-    "relative_order" : 1,
+    "relative_order" : 17,
     "source_on_save" : false,
     "source_window" : "",
     "type" : "r_source"

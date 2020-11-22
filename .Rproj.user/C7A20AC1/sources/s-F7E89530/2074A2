@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1606038907850.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3797129200",
+    "id" : "2074A2",
+    "lastKnownWriteTime" : 1605742281,
+    "last_content_update" : 1605742281,
+    "path" : "~/Matriochkas/Matriochkas-dash_ok.R",
+    "project_path" : null,
+    "properties" : {
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 14,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

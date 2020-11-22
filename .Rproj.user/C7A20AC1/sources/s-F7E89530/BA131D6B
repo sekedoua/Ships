@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1606038912176.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3765377655",
+    "id" : "BA131D6B",
+    "lastKnownWriteTime" : 1605742281,
+    "last_content_update" : 1605742281,
+    "path" : "~/Matriochkas/physicochimie.R",
+    "project_path" : null,
+    "properties" : {
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 15,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

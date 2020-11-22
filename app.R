@@ -8,7 +8,11 @@ library(leaflet)
 library(DT)
 library("data.table")  
 library(lubridate)
- 
+
+#first step : reduce the size of the original file
+#ships_data_csv <- read.csv('ships.csv', stringsAsFactors = FALSE, header = TRUE)
+#saveRDS(ships_data_csv, "ships_data.rds")
+
 
 
 #map icons
@@ -16,12 +20,14 @@ library(lubridate)
 icon.fa <- makeAwesomeIcon(icon = 'flag', markerColor = 'red', library='fa', iconColor = 'black')
 icon.ion <- makeAwesomeIcon(icon = 'home', markerColor = 'green', library='ion')
 
-#recommendation <- read.csv('recommendation.csv', stringsAsFactors = FALSE, header = TRUE)
+
+
 ships_data=readRDS(file ="ships_data.rds")
 
 #add a datetime column type to better manage date
 ships_data$datetime_typeok<-as.POSIXct(ships_data$DATETIME,tz=Sys.timezone())
 
+#function to get the longest route 
 get_longest_course <- function(course)
 {
   #Identification of all the courses made by the ship
