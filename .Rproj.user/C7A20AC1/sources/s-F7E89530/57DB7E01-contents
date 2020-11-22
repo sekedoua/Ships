@@ -68,19 +68,11 @@ earth.dist <- function (long1, lat1, long2, lat2)
 header <- dashboardHeader(disable = TRUE)
 # Sidebar content of the dashboard
 sidebar <- dashboardSidebar(size = "wide",disable = TRUE,
-  sidebarMenu(
-    menuItem(text = "Dashboard", tabName = "dashboard", icon = icon("bar chart")),
-    menuItem(text = "Visit-us", href = "https://www.appsilondatascience.com", icon = icon("at"))),
+  sidebarMenu(),
 
 )
 
-# frow1 <- fluidRow(
-#   # valueBoxOutput("value1"),
-#   # valueBoxOutput("value2"),
-#   # valueBoxOutput("value3"),
-#   valueBoxOutput("Value4")
-# 
-# )
+ 
 frow2 <- fluidRow(
 
 
@@ -93,6 +85,8 @@ frow2 <- fluidRow(
   leafletOutput("mymap")
   
   ),
+  
+  ## dropdown fields for ship type and name 
   box(
 
     
@@ -126,17 +120,10 @@ frow2 <- fluidRow(
   verbatimTextOutput("longestdistance")
  ),
       
-      
- 
- 
- 
- 
- 
- 
- 
- 
- 
+    
 )
+
+#Table to show all the courses of the selected ship
 
 frow3<- fluidRow(
   dataTableOutput("tbchosen_shipes")
@@ -159,6 +146,7 @@ server <- function(input, output, session) {
   })
   
   
+  #render of the box for the longest distance 
   
   output$longestdistance  <- renderText({ 
     
@@ -171,27 +159,7 @@ server <- function(input, output, session) {
     })
   
   
-  # output$value4 <- renderValueBox({
-  #   valueBox(
-  #     value = formatC( nrow(subset(ships_data,ships_data$ship_type==input$choose_shipetype & ships_data$SHIPNAME==input$choose_shipe_name))
-  #       , format = "d", big.mark = ','),
-  #     subtitle =  'Total of courses:',
-  #     icon = icon("ship icon"),
-  #     color = "green",
-  #     width = 5)
-  # })
-  
-  # output$value4 <- renderValueBox({
-  #   valueBox(
-  #     value = formatC(  earth.dist((get_longest_course(input$choose_shipe_name))$LON[1],(get_longest_course(input$choose_shipe_name))$LAT[1],
-  #                                  (get_longest_course(input$choose_shipe_name))$LON[2],(get_longest_course(input$choose_shipe_name))$LAT[2]
-  #                                  )
-  #                      , format = "d", big.mark = ','),
-  #     subtitle =  'Ship sailed - longest distance  :',
-  #     icon = icon("ship icon"),
-  #     color = "green",
-  #     width = 5)
-  # })
+
   
   output$tbchosen_shipes<- renderDataTable(subset(ships_data,ships_data$ship_type==input$choose_shipetype & ships_data$SHIPNAME==input$choose_shipe_name),
                                            filter = 'top', extensions = c('Buttons', 'Scroller'),
@@ -206,13 +174,7 @@ server <- function(input, output, session) {
   
   
   
-  # output$mymap <- renderLeaflet({
-  #   leaflet() %>%
-  #     addProviderTiles(providers$Stamen.TonerLite,
-  #                      options = providerTileOptions(noWrap = TRUE)
-  #     ) 
-  #    # %>%addMarkers(data = points())
-  # })
+ #map generation
   
   output$mymap<- renderLeaflet({
      
@@ -220,8 +182,7 @@ server <- function(input, output, session) {
     map <-  leaflet(  ) %>%
       
       
-      # setView(lng = 18.632813, lat = 56.046733, zoom=5)%>% 
-      # fitBounds(16.589355, 55.162333, 20.928955, 54.162333) %>%
+#a tool to calculate distances on the rendered map 
       addMeasure(
         position = "bottomleft",
         primaryLengthUnit = "kilometers",
@@ -232,14 +193,11 @@ server <- function(input, output, session) {
         completedColor = "#7D4479")%>%
       
       addTiles()  
-    # %>%
-    #   addMarkers(lng = ~LON,
-    #              lat = ~LAT,
-    #              popup = paste("SHIP ID:", ships_data$SHIP_ID, "<br>",
-    #                            "SHIP name:", ships_data$SHIPNAME)
-    #              )
-    
+
+  #map update by the two points relate to longest pasth  
     if (input$choose_shipe_name != 0) {
+     
+       #get_longest_course function call
       longroute  <- get_longest_course(input$choose_shipe_name)
       
       map <-   addAwesomeMarkers(map,lng = longroute$LON[1], lat = longroute$LAT[1],    
