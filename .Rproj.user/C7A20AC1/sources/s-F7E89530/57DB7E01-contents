@@ -9,7 +9,7 @@ library(DT)
 library("data.table")  
 library(lubridate)
 
-#first step : reduce the size of the original file
+#first step : reduce the size of the original file by save it  to a rds  file
 #ships_data_csv <- read.csv('ships.csv', stringsAsFactors = FALSE, header = TRUE)
 #saveRDS(ships_data_csv, "ships_data.rds")
 

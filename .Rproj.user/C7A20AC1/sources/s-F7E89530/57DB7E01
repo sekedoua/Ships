@@ -5,14 +5,14 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "3684202228",
+    "hash" : "2864700242",
     "id" : "57DB7E01",
-    "lastKnownWriteTime" : 1606039320,
-    "last_content_update" : 1606039320448,
+    "lastKnownWriteTime" : 1606042441,
+    "last_content_update" : 1606042441779,
     "path" : "~/Apsilon/Ships/app.R",
     "project_path" : "app.R",
     "properties" : {
-        "cursorPosition" : "17,10",
+        "cursorPosition" : "14,0",
         "scrollLine" : "0"
     },
     "read_only" : false,
