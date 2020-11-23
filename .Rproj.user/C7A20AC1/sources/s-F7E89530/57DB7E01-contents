@@ -5,7 +5,7 @@ library(ggplot2)
 library(plyr)
 library(dplyr)
 library(leaflet)
-library(leaflet.providers)
+ 
 library(DT)
 library("data.table")  
 library(lubridate)
@@ -13,7 +13,7 @@ library(lubridate)
 #first step : reduce the size of the original file by save it  to a rds  file after removing unwanted character "." from ship name
 #ships_data_csv <- read.csv('ships.csv', stringsAsFactors = FALSE, header = TRUE)
 #ships_data_csv$SHIPNAME <- gsub('^\\.|\\.$', '', ships_data_csv$SHIPNAME)
-#ships_data$SHIPNAME <- stri_trim(ships_data$SHIPNAME)  to remove unnecessary white-spaceslibra
+#ships_data$SHIPNAME <- stri_trim(ships_data$SHIPNAME)  to remove unnecessary white-spaces 
 #saveRDS(ships_data_csv, "ships_data.rds")
 
 
@@ -188,7 +188,7 @@ server <- function(input, output, session) {
   output$mymap<- renderLeaflet({
     
     
-    map <-  leaflet(  ) %>% addProviderTiles("BasemapAT.grau") %>%
+    map <-  leaflet(  ) %>%  
       
       setView(lng = 15.117188, lat = 56.266236, zoom = 4) %>% 
       
