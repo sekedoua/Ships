@@ -213,7 +213,7 @@ server <- function(input, output, session) {
         completedColor = "#7D4479")%>%
       
       addTiles()  })
- 
+# leafletProxy call for fast map rendering
   observeEvent (input$choose_shipe_name , {
     if(input$choose_shipe_name != 0){
       
