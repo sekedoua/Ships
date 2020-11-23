@@ -5,7 +5,7 @@ library(ggplot2)
 library(plyr)
 library(dplyr)
 library(leaflet)
- 
+
 library(DT)
 library("data.table")  
 library(lubridate)
@@ -22,7 +22,6 @@ library(lubridate)
 #icon.glyphicon <- makeAwesomeIcon(icon= 'flag', markerColor = 'blue', iconColor = 'black')
 icon.fa <- makeAwesomeIcon(icon = 'flag', markerColor = 'red', library='fa', iconColor = 'black')
 icon.ion <- makeAwesomeIcon(icon = 'home', markerColor = 'green', library='ion')
- 
 
 
 #
@@ -30,13 +29,6 @@ icon.ion <- makeAwesomeIcon(icon = 'home', markerColor = 'green', library='ion')
 
 ships_data=readRDS(file ="ships_data.rds")
 
- 
- 
- 
-#
-#saveRDS(ships_data, "ships_data.rds")
- 
- 
 #add a datetime column type to better manage date
 ships_data$datetime_typeok<-as.POSIXct(ships_data$DATETIME,tz=Sys.timezone())
 
@@ -213,41 +205,20 @@ server <- function(input, output, session) {
         completedColor = "#7D4479")%>%
       
       addTiles()  })
-# leafletProxy call for fast map rendering
+  
+  
   observeEvent (input$choose_shipe_name , {
     if(input$choose_shipe_name != 0){
       
       longroute  <- get_longest_course(input$choose_shipe_name)
- 
+      
+      #leafletProxy for fast map rendering
       
       map_proxy   <- leafletProxy("mymap", data=longroute) 
- 
       
-      map_proxy   <- leafletProxy("mymap", data=longroute) 
-         
-     
-     map_proxy %>% clearMarkers()
-     map_proxy  %>%  setView(lng = longroute$LON[1], lat = longroute$LAT[1], zoom = 6)
-     addAwesomeMarkers(map_proxy,lng = longroute$LON[1], lat = longroute$LAT[1],    
-                                 label='Origin',
-                                 icon = icon.ion ,
-                                 popup = paste("Ship name:", longroute$SHIPNAME[1], "<br>",
-                                               "Date:",longroute$datetime_typeok[1], "<br>", 
-                                               "Course:" ,longroute$COURSE[1], "<br>",
-                                               "Destination:",longroute$DESTINATION[1]
-                                 )) 
-       addAwesomeMarkers(map_proxy,lng = longroute$LON[2], lat = longroute$LAT[2],
-                               label='Destination',
-                               icon = icon.fa,
-                               popup = paste("Ship name:", longroute$SHIPNAME[2], "<br>",
-                                             "Date:",longroute$datetime_typeok[2], "<br>", 
-                                             "Course:" ,longroute$COURSE[2], "<br>",
-                                             "Destination:",longroute$DESTINATION[2]
-                               ))
       
- 
       map_proxy %>% clearMarkers()
-      map_proxy  %>%  setView(lng = longroute$LON[1], lat = longroute$LAT[1], zoom = 6)
+      map_proxy  %>%  setView(lng = longroute$LON[1], lat = longroute$LAT[1], zoom = 4)
       addAwesomeMarkers(map_proxy,lng = longroute$LON[1], lat = longroute$LAT[1],    
                         label='Origin',
                         icon = icon.ion ,
@@ -267,13 +238,11 @@ server <- function(input, output, session) {
       
       
     }
- 
-     
-    }
- 
     
-   
- 
+    
+    
+    
+    
   })
   
   
