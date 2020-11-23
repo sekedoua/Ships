@@ -5,15 +5,15 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "2864700242",
+    "hash" : "0",
     "id" : "57DB7E01",
-    "lastKnownWriteTime" : 1606042441,
-    "last_content_update" : 1606042441779,
+    "lastKnownWriteTime" : 1606100592,
+    "last_content_update" : 1606100592849,
     "path" : "~/Apsilon/Ships/app.R",
     "project_path" : "app.R",
     "properties" : {
-        "cursorPosition" : "14,0",
-        "scrollLine" : "0"
+        "cursorPosition" : "216,86",
+        "scrollLine" : "202"
     },
     "read_only" : false,
     "read_only_alternatives" : [

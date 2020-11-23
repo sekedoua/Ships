@@ -1,16 +1,19 @@
 library(shiny)
- 
+
 require(semantic.dashboard)
 library(ggplot2)
 library(plyr)
 library(dplyr)
 library(leaflet)
+library(leaflet.providers)
 library(DT)
 library("data.table")  
 library(lubridate)
 
-#first step : reduce the size of the original file by save it  to a rds  file
+#first step : reduce the size of the original file by save it  to a rds  file after removing unwanted character "." from ship name
 #ships_data_csv <- read.csv('ships.csv', stringsAsFactors = FALSE, header = TRUE)
+#ships_data_csv$SHIPNAME <- gsub('^\\.|\\.$', '', ships_data_csv$SHIPNAME)
+#ships_data$SHIPNAME <- stri_trim(ships_data$SHIPNAME)  to remove unnecessary white-spaceslibra
 #saveRDS(ships_data_csv, "ships_data.rds")
 
 
@@ -19,11 +22,11 @@ library(lubridate)
 #icon.glyphicon <- makeAwesomeIcon(icon= 'flag', markerColor = 'blue', iconColor = 'black')
 icon.fa <- makeAwesomeIcon(icon = 'flag', markerColor = 'red', library='fa', iconColor = 'black')
 icon.ion <- makeAwesomeIcon(icon = 'home', markerColor = 'green', library='ion')
-
-
-
-ships_data=readRDS(file ="ships_data.rds")
-
+ 
+ 
+#
+#saveRDS(ships_data, "ships_data.rds")
+ 
 #add a datetime column type to better manage date
 ships_data$datetime_typeok<-as.POSIXct(ships_data$DATETIME,tz=Sys.timezone())
 
@@ -38,7 +41,7 @@ get_longest_course <- function(course)
   temp_table_arrival <- ddply(data_meri_course, "COURSE", summarize, max = max(datetime_typeok))
   
   #join to calculate time difference
-    df<-data.frame(temp_table_departure,temp_table_arrival)
+  df<-data.frame(temp_table_departure,temp_table_arrival)
   df$course_diff<- df$max-df$min
   
   #selection of the longest course
@@ -74,33 +77,33 @@ earth.dist <- function (long1, lat1, long2, lat2)
 header <- dashboardHeader(disable = TRUE)
 # Sidebar content of the dashboard
 sidebar <- dashboardSidebar(size = "wide",disable = TRUE,
-  sidebarMenu(),
-
+                            sidebarMenu(),
+                            
 )
 
- 
+
 frow2 <- fluidRow(
-
-
+  
+  
   box(
     title = "Ship Courses",
     color = "blue",
     ribbon = TRUE,
     collapsible = TRUE,
     width = 8,
-  leafletOutput("mymap")
-  
+    leafletOutput("mymap")
+    
   ),
   
   ## dropdown fields for ship type and name 
   box(
-
+    
     
     inputPanel(
       
       selectInput(inputId="choose_shipetype",
                   label="Select Vessel  type",
-                  choices=unique(ships_data$ship_type),
+                  choices= sort(unique(ships_data$ship_type)),
                   selected=unique(ships_data$ship_type)[1]),
       
       selectInput(inputId="choose_shipe_name",
@@ -114,26 +117,26 @@ frow2 <- fluidRow(
     
     #selectInput("shypename",label =  "Shype name", choices ="NULL" )
     
-
-  ),
-
- box(
-   title = "Ship sailed - longest distance ",
-   color = "blue",
-   ribbon = TRUE,
-   collapsible = TRUE,
-   width = 8,
-  verbatimTextOutput("longestdistance")
- ),
-      
     
+  ),
+  
+  box(
+    title = "Ship sailed - longest distance ",
+    color = "blue",
+    ribbon = TRUE,
+    collapsible = TRUE,
+    width = 8,
+    verbatimTextOutput("longestdistance")
+  ),
+  
+  
 )
 
 #Table to show all the courses of the selected ship
 
 frow3<- fluidRow(
   dataTableOutput("tbchosen_shipes")
- 
+  
 )
 # combine the two fluid rows to make the body
 body <- dashboardBody(title = "Dashboard", frow2,frow3)
@@ -143,9 +146,9 @@ ui <- dashboardPage(title = 'Vessels Dash',
 
 # create the server functions for the dashboard
 server <- function(input, output, session) {
-
+  
   observe({ updateSelectInput(session,
-                              inputId="choose_shipe_name", choices=unique(ships_data[ships_data$ship_type == input$choose_shipetype,"SHIPNAME"])
+                              inputId="choose_shipe_name", choices=sort(unique(ships_data[ships_data$ship_type == input$choose_shipetype,"SHIPNAME"]))
                               
                               
   )
@@ -156,39 +159,40 @@ server <- function(input, output, session) {
   
   output$longestdistance  <- renderText({ 
     
-     #nrow(subset(ships_data,ships_data$ship_type==input$choose_shipetype & ships_data$SHIPNAME==input$choose_shipe_name))
+    #nrow(subset(ships_data,ships_data$ship_type==input$choose_shipetype & ships_data$SHIPNAME==input$choose_shipe_name))
     
-   paste( earth.dist((get_longest_course(input$choose_shipe_name))$LON[1],(get_longest_course(input$choose_shipe_name))$LAT[1],
-                                               (get_longest_course(input$choose_shipe_name))$LON[2],(get_longest_course(input$choose_shipe_name))$LAT[2]
-                     ) , "meters"     
-           )
-    })
+    paste( earth.dist((get_longest_course(input$choose_shipe_name))$LON[1],(get_longest_course(input$choose_shipe_name))$LAT[1],
+                      (get_longest_course(input$choose_shipe_name))$LON[2],(get_longest_course(input$choose_shipe_name))$LAT[2]
+    ) , "meters"     
+    )
+  })
   
   
-
+  
   
   output$tbchosen_shipes<- renderDataTable(subset(ships_data,ships_data$ship_type==input$choose_shipetype & ships_data$SHIPNAME==input$choose_shipe_name),
                                            filter = 'top', extensions = c('Buttons', 'Scroller'),
-                                                         options = list(scrollY = 650,
-                                                                          scrollX = 500,
-                                                                          deferRender = TRUE,
-                                                                          scroller = TRUE,
-                                                                           pageLength = 25,
-                                                                          searching = FALSE)
-                                           )
+                                           options = list(scrollY = 650,
+                                                          scrollX = 500,
+                                                          deferRender = TRUE,
+                                                          scroller = TRUE,
+                                                          pageLength = 25,
+                                                          searching = FALSE)
+  )
   
   
   
   
- #map generation
+  #map generation
   
   output$mymap<- renderLeaflet({
-     
     
-    map <-  leaflet(  ) %>%
+    
+    map <-  leaflet(  ) %>% addProviderTiles("BasemapAT.grau") %>%
       
+      setView(lng = 15.117188, lat = 56.266236, zoom = 4) %>% 
       
-#a tool to calculate distances on the rendered map 
+      #a tool to calculate distances on the rendered map 
       addMeasure(
         position = "bottomleft",
         primaryLengthUnit = "kilometers",
@@ -198,39 +202,44 @@ server <- function(input, output, session) {
         activeColor = "#3D535D",
         completedColor = "#7D4479")%>%
       
-      addTiles()  
-
-  #map update by the two points relate to longest pasth  
-    if (input$choose_shipe_name != 0) {
-     
-       #get_longest_course function call
+      addTiles()  })
+    
+    
+  observeEvent (input$choose_shipe_name , {
+    if(input$choose_shipe_name != 0){
+      
       longroute  <- get_longest_course(input$choose_shipe_name)
       
-      map <-   addAwesomeMarkers(map,lng = longroute$LON[1], lat = longroute$LAT[1],    
-                                    label='Origin',
-                                    icon = icon.ion ,
-                                    popup = paste("Ship name:", longroute$SHIPNAME[1], "<br>",
-                                                  "Date:",longroute$datetime_typeok[1], "<br>", 
-                                                  "Course:" ,longroute$COURSE[1], "<br>",
-                                                  "Destination:",longroute$DESTINATION[1]
-                                    )) 
-      map <- addAwesomeMarkers(map,lng = longroute$LON[2], lat = longroute$LAT[2],
-                                                              label='Destination',
-                                                              icon = icon.fa,
-                                                              popup = paste("Ship name:", longroute$SHIPNAME[2], "<br>",
-                                                                            "Date:",longroute$datetime_typeok[2], "<br>", 
-                                                                            "Course:" ,longroute$COURSE[2], "<br>",
-                                                                            "Destination:",longroute$DESTINATION[2]
-                                                              ))
-    
+      map_proxy   <- leafletProxy("mymap", data=longroute) 
+         
+     
+     map_proxy %>% clearMarkers()
+     map_proxy  %>%  setView(lng = longroute$LON[1], lat = longroute$LAT[1], zoom = 6)
+     addAwesomeMarkers(map_proxy,lng = longroute$LON[1], lat = longroute$LAT[1],    
+                                 label='Origin',
+                                 icon = icon.ion ,
+                                 popup = paste("Ship name:", longroute$SHIPNAME[1], "<br>",
+                                               "Date:",longroute$datetime_typeok[1], "<br>", 
+                                               "Course:" ,longroute$COURSE[1], "<br>",
+                                               "Destination:",longroute$DESTINATION[1]
+                                 )) 
+       addAwesomeMarkers(map_proxy,lng = longroute$LON[2], lat = longroute$LAT[2],
+                               label='Destination',
+                               icon = icon.fa,
+                               popup = paste("Ship name:", longroute$SHIPNAME[2], "<br>",
+                                             "Date:",longroute$datetime_typeok[2], "<br>", 
+                                             "Course:" ,longroute$COURSE[2], "<br>",
+                                             "Destination:",longroute$DESTINATION[2]
+                               ))
       
-      
-      }
+     
+    }
     
+   
     
-    map
+  
     
-    })
+  })
   
   
   
